@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Displayimg() {
 
 
-    // const [start, setStart] = useState([]);
+   
     const [data] = useContext(Createcontext);
 
     let store=useNavigate();
@@ -18,7 +18,7 @@ export default function Displayimg() {
                     <img className='bigimg' src={items.imageurl} alt=''/>
                     <div className='datamove'>
                         <p> {items.title} </p>
-                        {/* <p>{items.description}</p> */}
+                       
                         <p>{items.category}/{items.date}</p>
                     </div>
 

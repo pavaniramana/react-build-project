@@ -11,7 +11,6 @@ export const Provider = (props) => {
         "likes":"10",
         "details":"The Golden Globes awards ceremony began in 1944. Members of the Hollywood Foreign Press Association present awards for achievement in film and television.The Power of the Dog is a 2021 Western psychological drama film[6][7][8] written and directed by Jane Campion, based on the 1967 novel of the same name by Thomas Savage. The film stars Benedict Cumberbatch, Kirsten Dunst, Jesse Plemons, and Kodi Smit-McPhee. Shot mostly across rural Otago, New Zealand, the film is an international co-production among New Zealand, Australia, the United Kingdom, and Canada. The film deals with themes such as love, grief, resentment, jealousy and sexuality.[9].It also received seven nominations at the 79th Golden Globe Awards, winning Best Motion Picture – Drama, Best Supporting Actor – Motion Picture for Smit-McPhee and Best Director for Campion and ten nominations at the 27th Critics' Choice Awards, including Best Picture.",
         "detailsimage":"https://img.jagranjosh.com/images/2022/January/1012022/Untitled%20design%20(1).jpg",
-        "detailsimage":"https://img.jagranjosh.com/images/2022/January/1012022/Untitled%20design%20(1).jpg  ",
         "content":" click here to know more",
     },
     {
