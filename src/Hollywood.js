@@ -1,11 +1,28 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Createcontext } from "./Createcontext";
-export default function Hollywood() {
-    // const [start, setStart] = useState([]);
-    const [data] = useContext(Createcontext);
+import axios from 'axios';
 
-    const [load, setLoad] = useState(false);
+
+
+export default function Hollywood() {
+      
+    const [name, setName] = useState([])
+
+        useEffect(()=>{
+            axios.get("https://react-block-backend.herokuapp.com/api/v1/content/Hollywood")
+            .then((req,res)=>{
+                const up=req.data
+            setName(up)
+            })
+        },[])
+
+    
+
+
+
+    
+
+    const [load, setLoad] = useState(true);
     const btnclick = () => {
 
         setLoad(true)
@@ -13,7 +30,7 @@ export default function Hollywood() {
 
     }
     let store = useNavigate();
-    const filterc = data.filter((list) => list.category === "Hollywood")
+    const filterc = name
 
     return (
         <div>
@@ -22,7 +39,7 @@ export default function Hollywood() {
                 {
                     filterc.filter((value) => load ? value.Id >= 1 : value.Id <= 5).map((items) => {
                         return (
-                            <div className='boxlatest' onClick={()=>store(`/category/${items.Id}`)}>
+                            <div className='boxlatest' onClick={()=>store(`/category/${items.id}`)}>
                                 <img className='imageslatest' src={items.imageurl} alt='' />
                                 <div className='space'>
                                     <p className='titlelatest'> {items.title}</p>
@@ -47,14 +64,14 @@ export default function Hollywood() {
 
                 {filterc.filter((value) => value.likes >= 100).map((items) => {
                     return (
-                        <div className='spacingbolly' onClick={() => store(`/category/${items.Id}`)}>
+                        <div className='spacingbolly' onClick={() => store(`/category/${items.id}`)}>
 
                             <img className='imagetoppost' src={items.imageurl} alt='' />
                             <div className='straight'>
                                 <p> {items.title} </p>
                                 <p>{items.description}</p>
                                 <p>{items.category}/{items.date}</p>
-
+                               
                             </div>
                             <hr/>
 

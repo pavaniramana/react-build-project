@@ -1,11 +1,26 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import {useNavigate } from 'react-router-dom';
-import { Createcontext } from "./Createcontext";
+import axios from 'axios';
+
+
+
 export default function Bollywood() {
+    
+    const [name, setName] = useState([])
 
-    const [data] = useContext(Createcontext);
+        useEffect(()=>{
+            axios.get("https://react-block-backend.herokuapp.com/api/v1/content/Bollywood",
+            // {params:{category:"Bollywood"}}
+            )
+            .then((req,res)=>{
+                const up=req.data
+            setName(up)
+            })
+        },[])
+ console.log(name)
 
-    const [load, setLoad] = useState(false);
+
+    const [load, setLoad] = useState(true);
     const btnclick = () => {
 
         setLoad(true)
@@ -13,7 +28,7 @@ export default function Bollywood() {
 
     }
     let store = useNavigate();
-    const filterc = data.filter((list) => list.category === "Bollywood")
+    const filterc = name
 
     return (
         <div>
@@ -22,7 +37,7 @@ export default function Bollywood() {
                 {
                     filterc.filter((value) => load ? value.Id >= 1 : value.Id <= 5).map((items) => {
                         return (
-                            <div className='boxlatest' onClick={()=>store(`/category/${items.Id}`)}>
+                            <div className='boxlatest' onClick={()=>store(`/category/${items.id}`)}>
                                 <img className='imageslatest' src={items.imageurl} alt='' />
                                 <div className='space'>
                                     <p className='titlelatest'> {items.title}</p>
@@ -46,7 +61,7 @@ export default function Bollywood() {
 
                 {filterc.filter((value) => value.likes >= 100).map((items) => {
                     return (
-                        <div className='spacingbolly' onClick={() => store(`/category/${items.Id}`)}>
+                        <div className='spacingbolly' onClick={() => store(`/category/${items.id}`)}>
                             <img className='imagetoppost' src={items.imageurl} alt='' />
                             <div className='straight'>
                                 <p> {items.title} </p>

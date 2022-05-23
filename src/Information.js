@@ -1,24 +1,34 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import {  useContext } from 'react'
-import { Createcontext } from "./Createcontext";
+import {  useState,useEffect } from 'react'
+import axios from 'axios'
 
 export default function Information() {
-    // const [start] = useState([]);
-    const [data] = useContext(Createcontext);
+   
+    const [data, setData] = useState([])
 
     const { id } = useParams();
 
+ useEffect(()=>{
+        axios.get(`https://react-block-backend.herokuapp.com/api/v1/blog/${id}`,
+        
+        )
+        .then((req,res)=>{
+            const up=req.data
+        setData(...up)
+        })
+    },[id])
 
-    return (
+    
+
+ return (
         <div>
-            {data.filter((value) => value.Id === id).map((items) => {
-                return (
+
 
                     <div className='deets'>
-                        <h1 className='titleinfo'>{items.title}</h1>
+                        <h1 className='titleinfo'>{data.title}</h1>
                         <div>
-                            {/* <h4 className='sharing'>{items.share}</h4> */}
+                            
                             <span className='insta'>
                                 <i class="fab fa-instagram"></i>
                             </span>
@@ -29,15 +39,15 @@ export default function Information() {
                                 <i class="fab fa-twitter-square"></i>
                             </span>
                         </div>
-                        <img className='extra' src={items.extra} alt='' />
-                        <p className='paradeets'>{items.details}</p>
-                        <img className='imagedeets' src={items.detailsimage} alt='' />
+                        <img className='extra' src={data.extra} alt='' />
+                        <p className='paradeets'>{data.details}</p>
+                        <img className='imagedeets' src={data.detailsimage} alt='' />
+                       
                     </div>
 
-
-                )
-            })}
+                
 
         </div>
     )
+
 }

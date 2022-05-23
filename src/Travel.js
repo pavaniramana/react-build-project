@@ -1,11 +1,24 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import {useNavigate } from 'react-router-dom';
-import { Createcontext } from "./Createcontext";
-export default function Travel() {
-    // const [start, setStart] = useState([]);
-    const [data] = useContext(Createcontext);
+import axios from 'axios';
 
-    const [load, setLoad] = useState(false);
+export default function Travel() {
+
+
+    const [name, setName] = useState([])
+
+    useEffect(()=>{
+        axios.get("https://react-block-backend.herokuapp.com/api/v1/content/Travel",
+        // {params:{category:"Travel"}}
+        )
+        .then((req,res)=>{
+            const up=req.data
+        setName(up)
+        })
+    },[])
+    
+
+    const [load, setLoad] = useState(true);
     const btnclick = () => {
 
         setLoad(true)
@@ -13,25 +26,25 @@ export default function Travel() {
 
     }
     let store = useNavigate();
-    const filterc = data.filter((list) => list.category === "Travel")
+    const filterc = name
 
     return (
         <div>
             <h1 className='latest'>Latest</h1>
             <div className='boxmain' >
                 {
-                    filterc.filter((value) => load ? value.Id >=1 : value.Id <=5).map((items,index) => {
+                    filterc.filter((value) => load ? value.Id>=1 : value.Id<=5).map((items,index) => {
                         return (
-
-                            <div key={index} className='boxlatest'  onClick={() => store(`/category/${items.Id}`)}>
+                            
+                            <div key={index} className='boxlatest'  onClick={() => store(`/category/${items.id}`)}>
                                 <img className='imageslatest' src={items.imageurl} alt='' />
                                 <div className='space'>
                                     <p className='titlelatest'> {items.title}</p>
                                     <p className='descriptionlatest'>{items.description}</p>
                                     <p className='categorylatest,datelatest'>{items.category}/{items.date}</p>
-
+                                   
                                 </div>
-
+                                
                             </div>
                         )
                     })
@@ -49,14 +62,14 @@ export default function Travel() {
 
                 {filterc.filter((value) => value.likes >= 100).map((items) => {
                     return (
-                        <div className='spacingbolly' onClick={() => store(`/category/${items.Id}`)}>
+                        <div className='spacingbolly' onClick={() => store(`/category/${items.id}`)}>
 
                             <img className='imagetoppost' src={items.imageurl} alt='' />
                             <div className='straight'>
                                 <p> {items.title} </p>
                                 <p>{items.description}</p>
                                 <p>{items.category}/{items.date}</p>
-
+                                
                             </div>
                             <hr/>
 
